@@ -31,8 +31,11 @@ class RSForecastDayView: UIView {
     var dataPoint:RSDataPoint? {
         didSet {
             dayLabel.text = dataPoint?.day
+            
             iconImageView.image = UIImage(named: dataPoint!.icon)
-            print(dataPoint?.icon)
+            iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        
         }
     }
     
