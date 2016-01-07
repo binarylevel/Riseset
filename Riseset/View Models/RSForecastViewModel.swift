@@ -45,7 +45,7 @@ class RSForecastViewModel   {
                                         return results.map { $0 }
                                     }
                                     .bindNext { item in
-                                        print("item \(item)")
+                                        //print("item \(item)")
                                         self.items.on(.Next(item))
                                        
                                     }.addDisposableTo(self.disposeBag)
@@ -59,20 +59,8 @@ class RSForecastViewModel   {
     
     func updateViewModel() {
         
-        //print("updateViewModel \(forecast)")
-        
         if let locality = forecast?.locality, administrativeArea = forecast?.administrativeArea {
             locationName.on(.Next("\(locality), \(administrativeArea)"))
         }
-        
-//        Realm.rx_objects(RSForecast)
-//            .map { results -> [RSForecast] in
-//                return results.map { $0 }
-//            }
-//            .bindNext { item in
-//                print("item \(item)")
-//        
-//                self.items.on(.Next(item))
-//            }.addDisposableTo(disposeBag)
     }
 }
