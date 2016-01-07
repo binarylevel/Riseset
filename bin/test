@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+xcodebuild -workspace Riseset.xcworkspace -scheme Riseset -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.1' test | xcpretty
