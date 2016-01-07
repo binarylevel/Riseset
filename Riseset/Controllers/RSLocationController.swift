@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import RxSwift
+import NSObject_Rx
 
 class RSLocationController: NSObject, CLLocationManagerDelegate {
     
@@ -16,8 +17,6 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
         case UpdateLocation
         case FailWithError
     }
-    
-    var disposeBag = DisposeBag()
     
     let locationManager = CLLocationManager()
     
@@ -67,7 +66,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                         break
                     default: break
                     }
-            }.addDisposableTo(self.disposeBag)
+            }.addDisposableTo(self.rx_disposeBag)
             
             return NopDisposable.instance
         }
@@ -86,7 +85,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                     break
                 default: break
                 }
-            }.addDisposableTo(self.disposeBag)
+            }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }
@@ -96,7 +95,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
             self.locationManager.rx_didFailWithError
                 .subscribeNext { error in
                 observer.onError(error)
-            }.addDisposableTo(self.disposeBag)
+            }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }
@@ -116,8 +115,6 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
             .rx_didFailWithError
             .flatMap { Observable.error($0) }
     }
-    
-
     
     func runActions2() -> Observable <CLLocation> {
         return Observable.create {observer in
@@ -141,7 +138,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                             self.fetchCurrentLocation().subscribeNext { location in
                                 observer.onNext(location)
                                 observer.onCompleted()
-                                }.addDisposableTo(self.disposeBag)
+                                }.addDisposableTo(self.rx_disposeBag)
                         }
                         break
                     case .Completed:
@@ -150,7 +147,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                         observer.onError(value)
                         break
                     }
-                }.addDisposableTo(self.disposeBag)
+                }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }
@@ -171,7 +168,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                         observer.onError(error)
                     break
                 }
-            }.addDisposableTo(self.disposeBag)
+            }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }
@@ -198,7 +195,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                             self.fetchCurrentLocation().subscribeNext { location in
                                 observer.onNext(location)
                                 observer.onCompleted()
-                            }.addDisposableTo(self.disposeBag)
+                            }.addDisposableTo(self.rx_disposeBag)
                         }
                         break
                     case .Completed:
@@ -207,7 +204,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                         observer.onError(value)
                         break
                     }
-                }.addDisposableTo(self.disposeBag)
+                }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }

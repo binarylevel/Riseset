@@ -13,7 +13,6 @@ import RxSwift
 class RSApplicationController: NSObject {
 
     var rootViewController:UINavigationController?
-    var disposeBag = DisposeBag()
     
     let weatherViewController = RSWeatherViewController()
     let weatherController = RSWeatherController()

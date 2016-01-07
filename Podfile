@@ -14,6 +14,7 @@ target :Riseset do
   pod 'Crashlytics'
   pod 'Alamofire', '~> 3.0'
   pod 'RealmSwift'
+  pod 'NSObject+Rx'
 end
 
 target :RisesetTests do

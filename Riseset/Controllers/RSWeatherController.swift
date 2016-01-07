@@ -9,13 +9,13 @@
 import UIKit
 import RxSwift
 import CoreLocation
+import NSObject_Rx
 
 class RSWeatherController: NSObject {
 
     let locationController = RSLocationController()
     let geocodeController = RSGeocodeController()
     
-    var disposeBag = DisposeBag()
     var viewModel = RSForecastViewModel()
     
     override init() {
@@ -50,7 +50,7 @@ class RSWeatherController: NSObject {
                                     
                                     self?.viewModel.placemark = placemark
                                     
-                                    }.addDisposableTo(self.disposeBag)
+                                    }.addDisposableTo(self.rx_disposeBag)
                                 break
                             case .Completed:
                                 
@@ -61,7 +61,7 @@ class RSWeatherController: NSObject {
                                 break
                             }
                             
-                            }.addDisposableTo(self.disposeBag)
+                            }.addDisposableTo(self.rx_disposeBag)
                         self.locationController.locationManager.startUpdatingLocation()
                         break
                     case .Completed:
@@ -73,7 +73,7 @@ class RSWeatherController: NSObject {
                         observer.onError(error)
                         break
                     }
-                }.addDisposableTo(self.disposeBag)
+                }.addDisposableTo(self.rx_disposeBag)
             
             
             return NopDisposable.instance

@@ -8,6 +8,8 @@ PODS:
     - Mixpanel/Mixpanel (= 2.9.1)
   - Mixpanel/Mixpanel (2.9.1)
   - Nimble (3.0.0)
+  - NSObject+Rx (1.2.0):
+    - RxSwift (~> 2.0.0)
   - PureLayout (3.0.1)
   - Quick (0.8.0)
   - Reachability (3.2)
@@ -31,6 +33,7 @@ DEPENDENCIES:
   - Fabric
   - Mixpanel
   - Nimble (= 3.0.0)
+  - NSObject+Rx
   - PureLayout
   - Quick (~> 0.8.0)
   - Reachability
@@ -48,6 +51,7 @@ SPEC CHECKSUMS:
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   Mixpanel: 5ca24b2a05f4c77fe9bcfe7671d681d0f3f8d76f
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  NSObject+Rx: 552d0a5bb78087b0faf9f8a066148577f1231426
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

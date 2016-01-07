@@ -39,7 +39,7 @@ class RSWeatherViewController: UIViewController {
                     label.text = text
                 })
             }
-            .addDisposableTo(disposeBag)
+            .addDisposableTo(rx_disposeBag)
     }
     
     let locationController = RSLocationController()
@@ -48,7 +48,6 @@ class RSWeatherViewController: UIViewController {
     
     let weatherController = RSWeatherController()
 
-    var disposeBag = DisposeBag()
     var viewModel = RSForecastViewModel()
     var dayViews:NSMutableArray?
     
@@ -68,7 +67,6 @@ class RSWeatherViewController: UIViewController {
         verticalLine1.backgroundColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 0.2)
         return verticalLine1
     }()
-    
     
     lazy var verticalLine2:UIView = {
         let verticalLine2 = UIView.newAutoLayoutView()
@@ -94,17 +92,7 @@ class RSWeatherViewController: UIViewController {
         
         //bindSourceToLabel(viewModel.cityName, label: myLabel)
         
-//        dayViews = NSMutableArray()
-//        
-//        for item in 0...2 {
-//            print(item)
-//            let forecastDayView = RSForecastDayView.newAutoLayoutView()
-//            view.addSubview(forecastDayView)
-//            dayViews?.addObject(forecastDayView)
-//        }
-        
         Realm.rx_objects(RSForecast).subscribeNext {items in
-            //print("items \(items)")
             
             if let dailyDatapoints = items.first?.dailyDataPoints {
                 
@@ -117,11 +105,10 @@ class RSWeatherViewController: UIViewController {
                 })
             }
             
-        }.addDisposableTo(disposeBag)
+        }.addDisposableTo(self.rx_disposeBag)
         
         weatherController.viewModel.items
             .subscribeNext { items in
-                
                 
                  if let dailyDatapoints = items.first?.dailyDataPoints {
                     let test = dailyDatapoints[1...3]
@@ -135,7 +122,7 @@ class RSWeatherViewController: UIViewController {
 
                 }
                 
-        }.addDisposableTo(disposeBag)
+        }.addDisposableTo(rx_disposeBag)
         
         weatherController.viewModel.locationName
             .startWith("updating weather...")
@@ -143,12 +130,12 @@ class RSWeatherViewController: UIViewController {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self?.locationLabel.text = text
                 })
-        }.addDisposableTo(disposeBag)
+        }.addDisposableTo(rx_disposeBag)
         
         NSNotificationCenter.defaultCenter().rx_notification(UIApplicationWillEnterForegroundNotification).subscribeNext { [weak self] _ in
             self?.weatherController.updateActions().subscribeNext { location in
-            }.addDisposableTo((self?.disposeBag)!)
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(self!.rx_disposeBag)
+        }.addDisposableTo(rx_disposeBag)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -156,7 +143,7 @@ class RSWeatherViewController: UIViewController {
   
         weatherController.updateActions().subscribeNext { location in
             
-        }.addDisposableTo(disposeBag)
+        }.addDisposableTo(rx_disposeBag)
     }
     
     override func loadView() {
