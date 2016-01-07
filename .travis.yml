@@ -1,0 +1,12 @@
+language: objective-c
+osx_image: xcode7
+
+script:
+- xctool -workspace Riseset.xcworkspace -scheme Riseset -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool test -workspace Riseset.xcworkspace -scheme RisesetTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+
+before_install:
+- gem i cocoapods --no-ri --no-rdoc
+- brew uninstall xctool; brew install xctool --HEAD;
+install:
+- pod install
