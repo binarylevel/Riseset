@@ -11,21 +11,19 @@ import Quick
 import Nimble
 import Expecta
 
+@testable import Riseset
 class TemperatureSpec: QuickSpec {
 
     override func spec() {
-        describe("the 'Documentation' directory") {
-            it("has everything you need to get started") {
-                expect("foo").to(equal("foo"))
-                //let sections = Directory("Documentation").sections
-                //expect(sections).to(contain("Organized Tests with Quick Examples and Example Groups"))
-                //expect(sections).to(contain("Installing Quick"))
-            }
-            
-            context("if it doesn't have what you're looking for") {
-                it("needs to be updated") {
-                    //let you = You(awesome: true)
-                    //expect{you.submittedAnIssue}.toEventually(beTruthy())
+        describe("Temperature") {
+        
+            context("Conversion to celsius should return correct values") {
+                it("should convert 75 to 24") {
+                    expect(RSTemperature(fahrenheitValue: 75).celsiusValue).to(equal(24))
+                }
+                
+                it("should convert 50 to 10") {
+                    expect(RSTemperature(fahrenheitValue: 50).celsiusValue).to(equal(10))
                 }
             }
         }

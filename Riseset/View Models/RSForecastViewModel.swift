@@ -11,9 +11,8 @@ import CoreLocation
 import RxSwift
 import RealmSwift
 
-class RSForecastViewModel   {
+class RSForecastViewModel : NSObject  {
     
-    var disposeBag = DisposeBag()
     let forecastController = RSForecastController()
 
     var locationName = PublishSubject<String?>()
@@ -31,6 +30,7 @@ class RSForecastViewModel   {
         didSet {
             if let value = placemark {
                 forecastController.getWeatherForPlacemark(value)
+                    .observeOn(MainScheduler.instance)
                     .debug("getWeatherForPlacemark")
                     .subscribeNext { jsonObject in
 
@@ -48,11 +48,11 @@ class RSForecastViewModel   {
                                         //print("item \(item)")
                                         self.items.on(.Next(item))
                                        
-                                    }.addDisposableTo(self.disposeBag)
+                                    }.addDisposableTo(self.rx_disposeBag)
                                 
-                            }.addDisposableTo(self.disposeBag)
+                            }.addDisposableTo(self.rx_disposeBag)
                         
-                }.addDisposableTo(disposeBag)
+                }.addDisposableTo(rx_disposeBag)
             }
         }
     }

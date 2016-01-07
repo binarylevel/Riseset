@@ -92,35 +92,39 @@ class RSWeatherViewController: UIViewController {
         
         //bindSourceToLabel(viewModel.cityName, label: myLabel)
         
-        Realm.rx_objects(RSForecast).subscribeNext {items in
+        Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
             
-            if let dailyDatapoints = items.first?.dailyDataPoints {
-                
-                let test = dailyDatapoints[1...3]
-                let newArray = Array(test)
-                
-                self.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
-                    let forecastDayView = view as! RSForecastDayView
-                    forecastDayView.dataPoint = newArray[index]
-                })
-            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if let dailyDatapoints = items.first?.dailyDataPoints {
+                    
+                    let test = dailyDatapoints[1...3]
+                    let newArray = Array(test)
+                    
+                    self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
+                        let forecastDayView = view as! RSForecastDayView
+                        forecastDayView.dataPoint = newArray[index]
+                    })
+                }
+            })
             
         }.addDisposableTo(self.rx_disposeBag)
         
         weatherController.viewModel.items
-            .subscribeNext { items in
+            .subscribeNext { [weak self] items in
                 
-                 if let dailyDatapoints = items.first?.dailyDataPoints {
-                    let test = dailyDatapoints[1...3]
-                    let newArray = Array(test)
-                
-                    self.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
-                        let forecastDayView = view as! RSForecastDayView
-                        print( newArray[index])
-                        forecastDayView.dataPoint = newArray[index]
-                    })
-
-                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let dailyDatapoints = items.first?.dailyDataPoints {
+                        let test = dailyDatapoints[1...3]
+                        let newArray = Array(test)
+                        
+                        self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
+                            let forecastDayView = view as! RSForecastDayView
+                            print( newArray[index])
+                            forecastDayView.dataPoint = newArray[index]
+                        })
+                        
+                    }
+                })
                 
         }.addDisposableTo(rx_disposeBag)
         
@@ -140,6 +144,7 @@ class RSWeatherViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
   
         weatherController.updateActions().subscribeNext { location in
             

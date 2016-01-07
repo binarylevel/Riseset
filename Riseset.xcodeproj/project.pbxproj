@@ -11,7 +11,8 @@
 		561FE6E01C3E84BC00E1D704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 561FE6DF1C3E84BC00E1D704 /* Assets.xcassets */; };
 		561FE6E31C3E84BC00E1D704 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 561FE6E11C3E84BC00E1D704 /* LaunchScreen.storyboard */; };
 		561FE6EE1C3E84BC00E1D704 /* RisesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561FE6ED1C3E84BC00E1D704 /* RisesetTests.swift */; };
-		561FE6FB1C3E880700E1D704 /* TestSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561FE6FA1C3E880700E1D704 /* TestSpec.swift */; };
+		5657D8A91C3EBAD300AC5EF7 /* ObservableType+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657D8A81C3EBAD300AC5EF7 /* ObservableType+Debug.swift */; };
+		5657D8AB1C3EBF6F00AC5EF7 /* RSTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */; };
 		56951C321C3E8C9D00B0217B /* TemperatureSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56951C311C3E8C9D00B0217B /* TemperatureSpec.swift */; };
 		56A317AD1C3E89F200B925D3 /* RSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3179A1C3E89F200B925D3 /* RSConstants.swift */; };
 		56A317AE1C3E89F200B925D3 /* RSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3179C1C3E89F200B925D3 /* RSAppDelegate.swift */; };
@@ -47,7 +48,8 @@
 		561FE6E91C3E84BC00E1D704 /* RisesetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RisesetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		561FE6ED1C3E84BC00E1D704 /* RisesetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RisesetTests.swift; sourceTree = "<group>"; };
 		561FE6EF1C3E84BC00E1D704 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		561FE6FA1C3E880700E1D704 /* TestSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSpec.swift; sourceTree = "<group>"; };
+		5657D8A81C3EBAD300AC5EF7 /* ObservableType+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObservableType+Debug.swift"; sourceTree = "<group>"; };
+		5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSTemperature.swift; sourceTree = "<group>"; };
 		56951C311C3E8C9D00B0217B /* TemperatureSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureSpec.swift; sourceTree = "<group>"; };
 		56A3179A1C3E89F200B925D3 /* RSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSConstants.swift; sourceTree = "<group>"; };
 		56A3179C1C3E89F200B925D3 /* RSAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAppDelegate.swift; sourceTree = "<group>"; };
@@ -143,7 +145,6 @@
 			children = (
 				561FE6ED1C3E84BC00E1D704 /* RisesetTests.swift */,
 				561FE6EF1C3E84BC00E1D704 /* Info.plist */,
-				561FE6FA1C3E880700E1D704 /* TestSpec.swift */,
 				56951C311C3E8C9D00B0217B /* TemperatureSpec.swift */,
 			);
 			path = RisesetTests;
@@ -174,6 +175,7 @@
 		56A317A31C3E89F200B925D3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5657D8A81C3EBAD300AC5EF7 /* ObservableType+Debug.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -183,6 +185,7 @@
 			children = (
 				56A317A51C3E89F200B925D3 /* RSDataPoint.swift */,
 				56A317A61C3E89F200B925D3 /* RSForecast.swift */,
+				5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -444,7 +447,9 @@
 				56A317B21C3E89F200B925D3 /* RSLocationController.swift in Sources */,
 				56A317B11C3E89F200B925D3 /* RSGeocodeController.swift in Sources */,
 				56A317B61C3E89F200B925D3 /* RSForecast.swift in Sources */,
+				5657D8AB1C3EBF6F00AC5EF7 /* RSTemperature.swift in Sources */,
 				56A317B71C3E89F200B925D3 /* RSWeatherViewController.swift in Sources */,
+				5657D8A91C3EBAD300AC5EF7 /* ObservableType+Debug.swift in Sources */,
 				56A317B41C3E89F200B925D3 /* RxRealm.swift in Sources */,
 				56A317B91C3E89F200B925D3 /* RSForecastDayView.swift in Sources */,
 				56A317B31C3E89F200B925D3 /* RSWeatherController.swift in Sources */,
@@ -460,7 +465,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				56951C321C3E8C9D00B0217B /* TemperatureSpec.swift in Sources */,
-				561FE6FB1C3E880700E1D704 /* TestSpec.swift in Sources */,
 				561FE6EE1C3E84BC00E1D704 /* RisesetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +580,7 @@
 				INFOPLIST_FILE = Riseset/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spirosgerokostas.Riseset;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

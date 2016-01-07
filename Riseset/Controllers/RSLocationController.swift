@@ -127,7 +127,7 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
             actions
                 .toObservable()
                 .merge()
-                .debug("actions")
+                .debugOnlyInDebugMode("debugOnlyInDebugMode:actions")
                 .take(1)
                 .subscribe { event in
                     print("EVENT ACTION \(event)")
