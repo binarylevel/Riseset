@@ -26,7 +26,7 @@ class RSForecast: Object {
         self.administrativeArea = placemark.administrativeArea
         
         if let currently = json["currently"] as? [String:AnyObject] {
-            print("currently \(currently)")
+            //print("currently \(currently)")
             let current = RSTemperature(fahrenheitValue: currently["temperature"] as! Int)
             print(current.description)
             
@@ -40,6 +40,12 @@ class RSForecast: Object {
                 dailyDataPoints.append(dataPoint)
             }
         }
+    }
+    
+    var currentTemperature:RSTemperature {
+        let temp = self.currently?.temperature
+        let currentTemperature = RSTemperature(fahrenheitValue: Int(temp!))
+        return currentTemperature
     }
     
     override class func primaryKey() -> String? {

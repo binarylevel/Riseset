@@ -32,6 +32,7 @@ class RSDataPoint: Object {
     dynamic var pressure:Double = 0
     dynamic var sunriseTime:Double = 0
     dynamic var sunsetTime:Double = 0
+    dynamic var temperature:Double = 0
     dynamic var temperatureMax:Double = 0
     dynamic var temperatureMaxTime:Double = 0
     dynamic var temperatureMin:Double = 0
@@ -137,6 +138,10 @@ class RSDataPoint: Object {
         
         if let temperatureMinTime = json["temperatureMinTime"] {
             self.temperatureMinTime = temperatureMinTime as! Double
+        }
+        
+        if let temperature = json["temperature"] {
+            self.temperature = temperature as! Double
         }
         
         if let time = json["time"] {

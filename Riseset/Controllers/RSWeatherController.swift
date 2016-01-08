@@ -27,26 +27,26 @@ class RSWeatherController: NSObject {
             self.locationController.requestAlwaysAuthorization()
                 .debug("requestAuthorization")
                 .subscribe { event in
-                    print("event \(event)")
+                    //print("event \(event)")
                     switch event {
                     case .Next(let authorized):
                       
-                        if authorized {
-                            print("authorized fetch current location")
-                        } else {
-                            print("denied")
-                        }
+//                        if authorized {
+//                            print("authorized fetch current location")
+//                        } else {
+//                            print("denied")
+//                        }
                         
                         self.locationController.runActions2().subscribe { event in
-                            print("event \(event)")
+                            //print("event \(event)")
                             switch event {
                             case .Next(let location):
-                                print("from PROTO location \(location)")
+                                //print("from PROTO location \(location)")
                                 observer.onNext(location)
                                 self.geocodeController.reverseGeocodeLocation(location).debug("reverseGeocodeLocation").subscribeNext { [weak self] placemark in
                                     
-                                    print("locality \(placemark.locality!)")
-                                    print("administrativeArea \(placemark.administrativeArea!)")
+                                    //print("locality \(placemark.locality!)")
+                                    //print("administrativeArea \(placemark.administrativeArea!)")
                                     
                                     self?.viewModel.placemark = placemark
                                     
@@ -56,7 +56,7 @@ class RSWeatherController: NSObject {
                                 
                                 break
                             case .Error(let error):
-                                print("from PROTO testCommands error \(error)")
+                                //print("from PROTO testCommands error \(error)")
                                 observer.onError(error)
                                 break
                             }
@@ -65,11 +65,11 @@ class RSWeatherController: NSObject {
                         self.locationController.locationManager.startUpdatingLocation()
                         break
                     case .Completed:
-                        print("completed")
+                        //print("completed")
                         
                         break
                     case .Error(let error):
-                        print("error!!!!!!!!! \(error)")
+                        //print("error!!!!!!!!! \(error)")
                         observer.onError(error)
                         break
                     }

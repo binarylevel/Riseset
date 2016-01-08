@@ -51,6 +51,17 @@ class RSWeatherViewController: UIViewController {
     var viewModel = RSForecastViewModel()
     var dayViews:NSMutableArray?
     
+    let temperatureLabel:UILabel = {
+        let temperatureLabel = UILabel.newAutoLayoutView()
+        if #available(iOS 8.2, *) {
+            temperatureLabel.font = UIFont.systemFontOfSize(200.0, weight: UIFontWeightRegular)
+        } else {
+            temperatureLabel.font = UIFont.systemFontOfSize(200.0)
+        }
+        temperatureLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        return temperatureLabel
+    }()
+    
     let locationLabel:UILabel = {
         let locationLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
@@ -92,12 +103,18 @@ class RSWeatherViewController: UIViewController {
         
         //bindSourceToLabel(viewModel.cityName, label: myLabel)
         
+        weatherController.viewModel.forecastModel
+            .subscribeNext { model in
+                print("model.currentTemperature \(model.currentTemperature)")
+        }.addDisposableTo(rx_disposeBag)
+        
         Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
-            
+            print("call")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
-                if let owner = items.first?.currently {
-                    print("owner \(owner)")
+                if let currently = items.first {
+                    print("currently================== \(currently.currentTemperature)")
+                    self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                 }
                 
                 if let dailyDatapoints = items.first?.dailyDataPoints {
@@ -114,24 +131,30 @@ class RSWeatherViewController: UIViewController {
             
         }.addDisposableTo(self.rx_disposeBag)
         
-        weatherController.viewModel.items
-            .subscribeNext { [weak self] items in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if let dailyDatapoints = items.first?.dailyDataPoints {
-                        let test = dailyDatapoints[1...3]
-                        let newArray = Array(test)
-                        
-                        self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
-                            let forecastDayView = view as! RSForecastDayView
-                            print( newArray[index])
-                            forecastDayView.dataPoint = newArray[index]
-                        })
-                        
-                    }
-                })
-                
-        }.addDisposableTo(rx_disposeBag)
+//        weatherController.viewModel.items
+//            .subscribeNext { [weak self] items in
+//                
+//                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                    
+//                    if let currently = items.first {
+//                        print("currently================== \(currently.currentTemperature)")
+//                        self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
+//                    }
+//                    
+//                    if let dailyDatapoints = items.first?.dailyDataPoints {
+//                        let test = dailyDatapoints[1...3]
+//                        let newArray = Array(test)
+//                        
+//                        self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
+//                            let forecastDayView = view as! RSForecastDayView
+//                            //print( newArray[index])
+//                            forecastDayView.dataPoint = newArray[index]
+//                        })
+//                        
+//                    }
+//                })
+//                
+//        }.addDisposableTo(rx_disposeBag)
         
         weatherController.viewModel.locationName
             .startWith("updating weather...")
@@ -147,10 +170,14 @@ class RSWeatherViewController: UIViewController {
         }.addDisposableTo(rx_disposeBag)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updateViewModel()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-  
         weatherController.updateActions().subscribeNext { location in
             
         }.addDisposableTo(rx_disposeBag)
@@ -174,6 +201,7 @@ class RSWeatherViewController: UIViewController {
         view.addSubview(verticalLine1)
         view.addSubview(verticalLine2)
         view.addSubview(horizontalLine)
+        view.addSubview(temperatureLabel)
         
         view.setNeedsUpdateConstraints()
     }
@@ -187,6 +215,9 @@ class RSWeatherViewController: UIViewController {
             
             locationLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 74.0)
             locationLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+            
+            temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationLabel)
+            temperatureLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
             dayViews?.autoSetViewsDimensionsToSize(CGSizeMake(width, height))
             dayViews?.autoMatchViewsDimension(.Width)
