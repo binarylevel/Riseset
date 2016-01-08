@@ -17,8 +17,16 @@ class RSForecastViewModel : NSObject  {
 
     var locationName = PublishSubject<String?>()
     var forecastModel = PublishSubject<RSForecast>()
-    
+ 
     let items = BehaviorSubject<[RSForecast]>(value: [])
+    
+    lazy var currentTemperature:RSTemperature = {
+        
+        let temp = self.forecast?.owner?.temperature
+        
+        let currentTemperature = RSTemperature(fahrenheitValue: temp!)
+        return currentTemperature
+    }()
     
     var forecast:RSForecast? {
         didSet {
@@ -62,5 +70,7 @@ class RSForecastViewModel : NSObject  {
         if let locality = forecast?.locality, administrativeArea = forecast?.administrativeArea {
             locationName.on(.Next("\(locality), \(administrativeArea)"))
         }
+        
+        forecastModel.on(.Next(forecast!))
     }
 }

@@ -15,6 +15,8 @@ class RSForecast: Object {
     dynamic var locality:String?
     dynamic var administrativeArea:String?
     
+    dynamic var owner: RSCurrentlyForecast?
+    
     let dailyDataPoints = List<RSDataPoint>()
     
     convenience init(placemark:CLPlacemark, json:[String:AnyObject]) {
@@ -28,6 +30,9 @@ class RSForecast: Object {
             print("currently \(currently)")
             let current = RSTemperature(fahrenheitValue: currently["temperature"] as! Int)
             print(current.description)
+            
+            let currentlyForecast = RSCurrentlyForecast(json: currently)
+            self.owner = currentlyForecast
         }
         
         if let daily = json["daily"] as? [String:AnyObject], data = daily["data"] as? [NSDictionary] {

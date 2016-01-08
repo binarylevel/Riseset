@@ -40,7 +40,7 @@ class RSAppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = applicationController?.rootViewController
         window?.backgroundColor = UIColor.whiteColor()
         window?.makeKeyAndVisible()
-        print(RSTemperature(fahrenheitValue: 100).celsiusValue)
+      
         return true
     }
 

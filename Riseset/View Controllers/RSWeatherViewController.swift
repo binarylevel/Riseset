@@ -95,6 +95,11 @@ class RSWeatherViewController: UIViewController {
         Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+                if let owner = items.first?.owner {
+                    print("owner \(owner.tmp)")
+                }
+                
                 if let dailyDatapoints = items.first?.dailyDataPoints {
                     
                     let test = dailyDatapoints[1...3]
