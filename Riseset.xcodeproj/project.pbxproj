@@ -13,7 +13,6 @@
 		561FE6EE1C3E84BC00E1D704 /* RisesetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561FE6ED1C3E84BC00E1D704 /* RisesetTests.swift */; };
 		5657D8A91C3EBAD300AC5EF7 /* ObservableType+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657D8A81C3EBAD300AC5EF7 /* ObservableType+Debug.swift */; };
 		5657D8AB1C3EBF6F00AC5EF7 /* RSTemperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */; };
-		568024461C3F0898006209E8 /* RSCurrentlyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568024451C3F0898006209E8 /* RSCurrentlyForecast.swift */; };
 		56951C321C3E8C9D00B0217B /* TemperatureSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56951C311C3E8C9D00B0217B /* TemperatureSpec.swift */; };
 		56A317AD1C3E89F200B925D3 /* RSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3179A1C3E89F200B925D3 /* RSConstants.swift */; };
 		56A317AE1C3E89F200B925D3 /* RSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3179C1C3E89F200B925D3 /* RSAppDelegate.swift */; };
@@ -51,7 +50,6 @@
 		561FE6EF1C3E84BC00E1D704 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5657D8A81C3EBAD300AC5EF7 /* ObservableType+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObservableType+Debug.swift"; sourceTree = "<group>"; };
 		5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSTemperature.swift; sourceTree = "<group>"; };
-		568024451C3F0898006209E8 /* RSCurrentlyForecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCurrentlyForecast.swift; sourceTree = "<group>"; };
 		56951C311C3E8C9D00B0217B /* TemperatureSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureSpec.swift; sourceTree = "<group>"; };
 		56A3179A1C3E89F200B925D3 /* RSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSConstants.swift; sourceTree = "<group>"; };
 		56A3179C1C3E89F200B925D3 /* RSAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSAppDelegate.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				56A317A51C3E89F200B925D3 /* RSDataPoint.swift */,
 				56A317A61C3E89F200B925D3 /* RSForecast.swift */,
 				5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */,
-				568024451C3F0898006209E8 /* RSCurrentlyForecast.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -453,7 +450,6 @@
 				5657D8AB1C3EBF6F00AC5EF7 /* RSTemperature.swift in Sources */,
 				56A317B71C3E89F200B925D3 /* RSWeatherViewController.swift in Sources */,
 				5657D8A91C3EBAD300AC5EF7 /* ObservableType+Debug.swift in Sources */,
-				568024461C3F0898006209E8 /* RSCurrentlyForecast.swift in Sources */,
 				56A317B41C3E89F200B925D3 /* RxRealm.swift in Sources */,
 				56A317B91C3E89F200B925D3 /* RSForecastDayView.swift in Sources */,
 				56A317B31C3E89F200B925D3 /* RSWeatherController.swift in Sources */,

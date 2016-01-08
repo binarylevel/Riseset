@@ -11,8 +11,8 @@ import Foundation
 
 class RSDataPoint: Object {
 
-    dynamic var day:String?
-    dynamic var summary:String?
+    dynamic var day:String = ""
+    dynamic var summary:String = ""
     dynamic var apparentTemperatureMax:Double = 0
     dynamic var apparentTemperatureMin:Double = 0
     dynamic var apparentTemperatureMaxTime:Double = 0
@@ -26,6 +26,9 @@ class RSDataPoint: Object {
     dynamic var precipIntensity:Double = 0
     dynamic var precipIntensityMax:Double = 0
     dynamic var precipProbability:Double = 0
+    dynamic var precipIntensityMaxTime:Double = 0
+    dynamic var precipType:String = ""
+    dynamic var precipAccumulation:Double = 0
     dynamic var pressure:Double = 0
     dynamic var sunriseTime:Double = 0
     dynamic var sunsetTime:Double = 0
@@ -35,39 +38,133 @@ class RSDataPoint: Object {
     dynamic var temperatureMinTime:Double = 0
     dynamic var time:Double = 0
     dynamic var windSpeed:Double = 0
+    dynamic var visibility:Double = 0
+    dynamic var windBearing:Double = 0
     
     convenience init(json:NSDictionary) {
         self.init()
         
-        let date = NSDate(timeIntervalSince1970: (json["time"] as? Double)!)
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "ccc"
+        if let time = json["time"] {
+            
+            let date = NSDate(timeIntervalSince1970: (time as? Double)!)
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "ccc"
+            
+            let day = dateFormatter.stringFromDate(date)
+            
+            self.day = day
+        }
+    
+        if let summary = json["summary"] {
+            self.summary = summary as! String
+        }
         
-        let day = dateFormatter.stringFromDate(date)
+        if let apparentTemperatureMax = json["apparentTemperatureMax"] {
+            self.apparentTemperatureMax = apparentTemperatureMax as! Double
+        }
         
-        self.day = day
-        self.summary = json["summary"] as? String
-        self.apparentTemperatureMax = json["apparentTemperatureMax"] as! Double
-        self.apparentTemperatureMin = json["apparentTemperatureMin"] as! Double
-        self.apparentTemperatureMaxTime = json["apparentTemperatureMaxTime"] as! Double
-        self.apparentTemperatureMinTime = json["apparentTemperatureMinTime"] as! Double
-        self.cloudCover = json["cloudCover"] as! Double
-        self.dewPoint = json["dewPoint"] as! Double
-        self.humidity = json["humidity"] as! Double
-        self.icon = json["icon"] as! String
-        self.moonPhase = json["moonPhase"] as! Double
-        self.ozone = json["ozone"] as! Double
-        self.precipIntensity = json["precipIntensity"] as! Double
-        self.precipIntensityMax = json["precipIntensityMax"] as! Double
-        self.precipProbability = json["precipProbability"] as! Double
-        self.pressure = json["pressure"] as! Double
-        self.sunriseTime = json["sunriseTime"] as! Double
-        self.sunsetTime = json["sunsetTime"] as! Double
-        self.temperatureMax = json["temperatureMax"] as! Double
-        self.temperatureMaxTime = json["temperatureMaxTime"] as! Double
-        self.temperatureMin = json["temperatureMin"] as! Double
-        self.temperatureMinTime = json["temperatureMinTime"] as! Double
-        self.time = json["time"] as! Double
-        self.windSpeed = json["windSpeed"] as! Double
+        if let apparentTemperatureMin = json["apparentTemperatureMin"] {
+            self.apparentTemperatureMin = apparentTemperatureMin as! Double
+        }
+        
+        if let apparentTemperatureMaxTime = json["apparentTemperatureMaxTime"] {
+            self.apparentTemperatureMaxTime = apparentTemperatureMaxTime as! Double
+        }
+        
+        if let apparentTemperatureMinTime = json["apparentTemperatureMinTime"] {
+            self.apparentTemperatureMinTime = apparentTemperatureMinTime as! Double
+        }
+        
+        if let cloudCover = json["cloudCover"] {
+           self.cloudCover = cloudCover as! Double
+        }
+        
+        if let dewPoint = json["dewPoint"] {
+            self.dewPoint = dewPoint as! Double
+        }
+
+        if let humidity = json["humidity"] {
+            self.humidity = humidity as! Double
+        }
+        
+        if let icon = json["icon"] {
+            self.icon = icon as! String
+        }
+        
+        if let moonPhase = json["moonPhase"] {
+            self.moonPhase = moonPhase as! Double
+        }
+        
+        if let ozone = json["ozone"] {
+            self.ozone = ozone as! Double
+        }
+        
+        if let precipIntensity = json["precipIntensity"] {
+          self.precipIntensity = precipIntensity as! Double
+        }
+        
+        if let precipIntensityMax = json["precipIntensityMax"] {
+            self.precipIntensityMax = precipIntensityMax as! Double
+        }
+        
+        if let precipProbability = json["precipProbability"] {
+            self.precipProbability = precipProbability as! Double
+        }
+        
+        if let pressure = json["pressure"] {
+            self.pressure = pressure as! Double
+        }
+        
+        if let sunriseTime = json["sunriseTime"]  {
+            self.sunriseTime = sunriseTime as! Double
+        }
+        
+        if let sunsetTime = json["sunsetTime"] {
+            self.sunsetTime = sunsetTime as! Double
+        }
+        
+        if let temperatureMax = json["temperatureMax"] {
+             self.temperatureMax = temperatureMax as! Double
+        }
+        
+        if let temperatureMaxTime = json["temperatureMaxTime"] {
+            self.temperatureMaxTime = temperatureMaxTime as! Double
+        }
+        
+        if let temperatureMin = json["temperatureMin"] {
+             self.temperatureMin = temperatureMin as! Double
+        }
+        
+        if let temperatureMinTime = json["temperatureMinTime"] {
+            self.temperatureMinTime = temperatureMinTime as! Double
+        }
+        
+        if let time = json["time"] {
+            self.time = time as! Double
+        }
+        
+        if let windSpeed = json["windSpeed"] {
+            self.windSpeed = windSpeed as! Double
+        }
+        
+        if let visibility = json["visibility"] {
+            self.visibility = visibility as! Double
+        }
+        
+        if let precipIntensityMaxTime = json["precipIntensityMaxTime"] {
+            self.precipIntensityMaxTime = precipIntensityMaxTime as! Double
+        }
+        
+        if let precipType = json["precipType"] {
+            self.precipType = precipType as! String
+        }
+        
+        if let precipAccumulation = json["precipAccumulation"] {
+            self.precipAccumulation = precipAccumulation as! Double
+        }
+        
+        if let windBearing = json["windBearing"] {
+          self.windBearing = windBearing as! Double
+        }
     }
 }

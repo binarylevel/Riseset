@@ -19,15 +19,7 @@ class RSForecastViewModel : NSObject  {
     var forecastModel = PublishSubject<RSForecast>()
  
     let items = BehaviorSubject<[RSForecast]>(value: [])
-    
-    lazy var currentTemperature:RSTemperature = {
         
-        let temp = self.forecast?.owner?.temperature
-        
-        let currentTemperature = RSTemperature(fahrenheitValue: temp!)
-        return currentTemperature
-    }()
-    
     var forecast:RSForecast? {
         didSet {
             updateViewModel()

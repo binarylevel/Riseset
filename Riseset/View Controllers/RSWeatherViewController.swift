@@ -96,8 +96,8 @@ class RSWeatherViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
-                if let owner = items.first?.owner {
-                    print("owner \(owner.tmp)")
+                if let owner = items.first?.currently {
+                    print("owner \(owner)")
                 }
                 
                 if let dailyDatapoints = items.first?.dailyDataPoints {
