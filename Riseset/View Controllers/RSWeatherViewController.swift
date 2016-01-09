@@ -65,9 +65,9 @@ class RSWeatherViewController: UIViewController {
     let temperatureLabel:UILabel = {
         let temperatureLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
-            temperatureLabel.font = UIFont.systemFontOfSize(200.0, weight: UIFontWeightRegular)
+            temperatureLabel.font = UIFont.systemFontOfSize(160.0, weight: UIFontWeightRegular)
         } else {
-            temperatureLabel.font = UIFont.systemFontOfSize(200.0)
+            temperatureLabel.font = UIFont.systemFontOfSize(160.0)
         }
         temperatureLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
         return temperatureLabel
@@ -108,6 +108,7 @@ class RSWeatherViewController: UIViewController {
         
         navigationItem.titleView = locationLabel
         
+        automaticallyAdjustsScrollViewInsets = false
         view.backgroundColor = UIColor(red: 250.0 / 255.0, green: 250.0 / 255.0, blue: 250.0 / 255.0, alpha: 1.0)
         
         navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
@@ -194,11 +195,14 @@ class RSWeatherViewController: UIViewController {
         viewModel.updateViewModel()
     }
     
+
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         weatherController.updateActions().subscribeNext { location in
-            
+            print("end")
+
         }.addDisposableTo(rx_disposeBag)
     }
     
@@ -206,8 +210,6 @@ class RSWeatherViewController: UIViewController {
         
         view = UIView()
         view.backgroundColor = UIColor.whiteColor()
-        
-        //view.addSubview(locationLabel)
         
         dayViews = NSMutableArray()
         
@@ -232,7 +234,7 @@ class RSWeatherViewController: UIViewController {
         let height:CGFloat = 160.0
         
         if !didSetupContraints {
-                        
+            
             timeLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 74.0)
             timeLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
