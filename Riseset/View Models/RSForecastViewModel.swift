@@ -54,7 +54,7 @@ class RSForecastViewModel : NSObject  {
                         
                         Realm.rx_add([self.forecast!], update: true, thread: Realm.RealmThread.MainThread)
                             .subscribeCompleted { _ in
-                                print("completed adding data")
+                                
                                 self.updateViewModel()
                                 
                             }.addDisposableTo(self.rx_disposeBag)
@@ -65,8 +65,6 @@ class RSForecastViewModel : NSObject  {
     }
     
     func updateViewModel() {
-        
-        print("updateViewModel")
         
         if let locality = forecast?.locality, administrativeArea = forecast?.administrativeArea {
             locationName.on(.Next("\(locality), \(administrativeArea)"))
@@ -83,7 +81,7 @@ class RSForecastViewModel : NSObject  {
                 return results.map { $0 }
             }
             .bindNext { item in
-                print("item \(item)")
+                
                 self.items.on(.Next(item))
                 
             }.addDisposableTo(self.rx_disposeBag)

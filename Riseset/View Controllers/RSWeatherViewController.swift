@@ -120,15 +120,12 @@ class RSWeatherViewController: UIViewController {
                 
         weatherController.viewModel.forecastModel
             .subscribeNext { model in
-                print("model.currentTemperature \(model.currentTemperature)")
         }.addDisposableTo(rx_disposeBag)
         
         Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
-            print("call rx_objects")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
                 if let currently = items.first {
-                    print("currently================== \(currently.currentTemperature)")
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                 }
                 
@@ -152,7 +149,6 @@ class RSWeatherViewController: UIViewController {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
                     if let currently = items.first {
-                        print("reload \(currently.currentTemperature)")
                         self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                     }
                     
@@ -162,10 +158,8 @@ class RSWeatherViewController: UIViewController {
                         
                         self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
                             let forecastDayView = view as! RSForecastDayView
-                            //print( newArray[index])
                             forecastDayView.dataPoint = newArray[index]
                         })
-                        
                     }
                 })
                 
@@ -190,14 +184,11 @@ class RSWeatherViewController: UIViewController {
         viewModel.updateViewModel()
     }
     
-
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         weatherController.updateActions().subscribeNext { location in
-            print("end")
-
+    
         }.addDisposableTo(rx_disposeBag)
     }
     
