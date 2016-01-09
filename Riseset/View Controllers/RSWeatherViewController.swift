@@ -74,12 +74,13 @@ class RSWeatherViewController: UIViewController {
     }()
     
     let locationLabel:UILabel = {
-        let locationLabel = UILabel.newAutoLayoutView()
+        let locationLabel = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
         if #available(iOS 8.2, *) {
-            locationLabel.font = UIFont.systemFontOfSize(24.0, weight: UIFontWeightRegular)
+            locationLabel.font = UIFont.systemFontOfSize(22.0, weight: UIFontWeightRegular)
         } else {
-            locationLabel.font = UIFont.systemFontOfSize(24.0)
+            locationLabel.font = UIFont.systemFontOfSize(22.0)
         }
+        locationLabel.textAlignment = .Center
         locationLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
         return locationLabel
     }()
@@ -104,6 +105,8 @@ class RSWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.titleView = locationLabel
         
         view.backgroundColor = UIColor(red: 250.0 / 255.0, green: 250.0 / 255.0, blue: 250.0 / 255.0, alpha: 1.0)
         
@@ -204,7 +207,7 @@ class RSWeatherViewController: UIViewController {
         view = UIView()
         view.backgroundColor = UIColor.whiteColor()
         
-        view.addSubview(locationLabel)
+        //view.addSubview(locationLabel)
         
         dayViews = NSMutableArray()
         
@@ -229,11 +232,8 @@ class RSWeatherViewController: UIViewController {
         let height:CGFloat = 160.0
         
         if !didSetupContraints {
-            
-            locationLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 74.0)
-            locationLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            
-            timeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationLabel)
+                        
+            timeLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 74.0)
             timeLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
             temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: timeLabel)
