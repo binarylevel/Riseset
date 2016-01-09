@@ -15,6 +15,7 @@ class RSForecastViewModel : NSObject  {
     
     let forecastController = RSForecastController()
 
+    var publishTime = PublishSubject<String?>()
     var locationName = PublishSubject<String?>()
     var forecastModel = PublishSubject<RSForecast>()
  
@@ -23,6 +24,20 @@ class RSForecastViewModel : NSObject  {
     var currentTemperature:String {
         let temp = self.forecast?.currentTemperature
         return "\(temp!.fahrenheitValue)"
+    }
+    
+    var time:String {
+        
+        if let forecastTime = self.forecast?.time {
+            
+            let date = NSDate(timeIntervalSince1970: forecastTime)
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.locale = NSLocale.currentLocale()
+            dateFormatter.dateFormat = "HH:mm a"
+            return dateFormatter.stringFromDate(date)
+        }
+        return ""
     }
         
     var forecast:RSForecast?
@@ -61,6 +76,7 @@ class RSForecastViewModel : NSObject  {
              forecastModel.on(.Next(forecast))
         }
         
+        publishTime.on(.Next(time))
         
         Realm.rx_objects(RSForecast)
             .map { results -> [RSForecast] in

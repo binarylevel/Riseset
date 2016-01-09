@@ -48,6 +48,10 @@ class RSForecast: Object {
         return currentTemperature
     }
     
+    var time:Double {
+        return self.currently!.time
+    }
+    
     override class func primaryKey() -> String? {
         return "id"
     }

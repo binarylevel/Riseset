@@ -51,6 +51,17 @@ class RSWeatherViewController: UIViewController {
     var viewModel = RSForecastViewModel()
     var dayViews:NSMutableArray?
     
+    let timeLabel:UILabel = {
+        let timeLabel = UILabel.newAutoLayoutView()
+        if #available(iOS 8.2, *) {
+            timeLabel.font = UIFont.systemFontOfSize(20.0, weight: UIFontWeightRegular)
+        } else {
+            timeLabel.font = UIFont.systemFontOfSize(20.0)
+        }
+        timeLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        return timeLabel
+    }()
+    
     let temperatureLabel:UILabel = {
         let temperatureLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
@@ -101,7 +112,12 @@ class RSWeatherViewController: UIViewController {
         navigationController?.navigationBar.translucent = true
         navigationController?.view.backgroundColor = UIColor.clearColor()
         
-        //bindSourceToLabel(viewModel.cityName, label: myLabel)
+        bindSourceToLabel(weatherController.viewModel.publishTime, label: timeLabel)
+        
+//        weatherController.viewModel.publishTime
+//            .subscribeNext { time in
+//                print("time!!!!! \(time)")
+//        }.addDisposableTo(rx_disposeBag)
         
         weatherController.viewModel.forecastModel
             .subscribeNext { model in
@@ -202,6 +218,7 @@ class RSWeatherViewController: UIViewController {
         view.addSubview(verticalLine2)
         view.addSubview(horizontalLine)
         view.addSubview(temperatureLabel)
+        view.addSubview(timeLabel)
         
         view.setNeedsUpdateConstraints()
     }
@@ -216,7 +233,10 @@ class RSWeatherViewController: UIViewController {
             locationLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 74.0)
             locationLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
-            temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationLabel)
+            timeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationLabel)
+            timeLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+            
+            temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: timeLabel)
             temperatureLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
             dayViews?.autoSetViewsDimensionsToSize(CGSizeMake(width, height))
