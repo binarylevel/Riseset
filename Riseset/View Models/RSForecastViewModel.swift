@@ -25,11 +25,7 @@ class RSForecastViewModel : NSObject  {
         return "\(temp!.fahrenheitValue)"
     }
         
-    var forecast:RSForecast?// {
-//        didSet {
-//            updateViewModel()
-//        }
-//    }
+    var forecast:RSForecast?
     
     var placemark:CLPlacemark? {
         didSet {
@@ -43,17 +39,8 @@ class RSForecastViewModel : NSObject  {
                         
                         Realm.rx_add([self.forecast!], update: true, thread: Realm.RealmThread.MainThread)
                             .subscribeCompleted { _ in
-                                print("completed")
+                                print("completed adding data")
                                 self.updateViewModel()
-//                                Realm.rx_objects(RSForecast)
-//                                    .map { results -> [RSForecast] in
-//                                        return results.map { $0 }
-//                                    }
-//                                    .bindNext { item in
-//                                        //print("item \(item)")
-//                                        self.items.on(.Next(item))
-//                                       
-//                                    }.addDisposableTo(self.rx_disposeBag)
                                 
                             }.addDisposableTo(self.rx_disposeBag)
                         
@@ -64,20 +51,23 @@ class RSForecastViewModel : NSObject  {
     
     func updateViewModel() {
         
+        print("updateViewModel")
+        
         if let locality = forecast?.locality, administrativeArea = forecast?.administrativeArea {
             locationName.on(.Next("\(locality), \(administrativeArea)"))
         }
         
-        if let f = forecast {
-             forecastModel.on(.Next(f))
+        if let forecast = forecast {
+             forecastModel.on(.Next(forecast))
         }
+        
         
         Realm.rx_objects(RSForecast)
             .map { results -> [RSForecast] in
                 return results.map { $0 }
             }
             .bindNext { item in
-                print("testrrrrrrrrrrrrrrrr \(item)")
+                print("item \(item)")
                 self.items.on(.Next(item))
                 
             }.addDisposableTo(self.rx_disposeBag)

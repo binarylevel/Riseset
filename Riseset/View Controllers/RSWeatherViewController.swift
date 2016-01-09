@@ -109,7 +109,7 @@ class RSWeatherViewController: UIViewController {
         }.addDisposableTo(rx_disposeBag)
         
         Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
-            print("call")
+            print("call rx_objects")
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
                 if let currently = items.first {
@@ -131,30 +131,30 @@ class RSWeatherViewController: UIViewController {
             
         }.addDisposableTo(self.rx_disposeBag)
         
-//        weatherController.viewModel.items
-//            .subscribeNext { [weak self] items in
-//                
-//                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                    
-//                    if let currently = items.first {
-//                        print("currently================== \(currently.currentTemperature)")
-//                        self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
-//                    }
-//                    
-//                    if let dailyDatapoints = items.first?.dailyDataPoints {
-//                        let test = dailyDatapoints[1...3]
-//                        let newArray = Array(test)
-//                        
-//                        self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
-//                            let forecastDayView = view as! RSForecastDayView
-//                            //print( newArray[index])
-//                            forecastDayView.dataPoint = newArray[index]
-//                        })
-//                        
-//                    }
-//                })
-//                
-//        }.addDisposableTo(rx_disposeBag)
+        weatherController.viewModel.items
+            .subscribeNext { [weak self] items in
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    
+                    if let currently = items.first {
+                        print("reload \(currently.currentTemperature)")
+                        self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
+                    }
+                    
+                    if let dailyDatapoints = items.first?.dailyDataPoints {
+                        let test = dailyDatapoints[1...3]
+                        let newArray = Array(test)
+                        
+                        self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
+                            let forecastDayView = view as! RSForecastDayView
+                            //print( newArray[index])
+                            forecastDayView.dataPoint = newArray[index]
+                        })
+                        
+                    }
+                })
+                
+        }.addDisposableTo(rx_disposeBag)
         
         weatherController.viewModel.locationName
             .startWith("updating weather...")
