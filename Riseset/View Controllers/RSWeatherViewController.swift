@@ -117,12 +117,7 @@ class RSWeatherViewController: UIViewController {
         navigationController?.view.backgroundColor = UIColor.clearColor()
         
         bindSourceToLabel(weatherController.viewModel.publishTime, label: timeLabel)
-        
-//        weatherController.viewModel.publishTime
-//            .subscribeNext { time in
-//                print("time!!!!! \(time)")
-//        }.addDisposableTo(rx_disposeBag)
-        
+                
         weatherController.viewModel.forecastModel
             .subscribeNext { model in
                 print("model.currentTemperature \(model.currentTemperature)")
