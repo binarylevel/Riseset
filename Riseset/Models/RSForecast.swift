@@ -15,6 +15,8 @@ class RSForecast: Object {
     dynamic var locality:String?
     dynamic var administrativeArea:String?
     
+    dynamic var latitude:Double = 0
+    
     dynamic var currently: RSDataPoint?
     
     let dailyDataPoints = List<RSDataPoint>()
@@ -24,6 +26,8 @@ class RSForecast: Object {
         
         self.locality = placemark.locality
         self.administrativeArea = placemark.administrativeArea
+        
+        self.latitude = json["latitude"] as!  Double
         
         if let currently = json["currently"] as? [String:AnyObject] {            
             let currentlyForecast = RSDataPoint(json: currently)
