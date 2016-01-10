@@ -19,7 +19,9 @@ class RSForecast: Object {
     
     dynamic var currently: RSDataPoint?
     
-    let dailyDataPoints = List<RSDataPoint>()
+    dynamic var hourly:RSDataBlock?
+    dynamic var daily:RSDataBlock?
+    dynamic var minutely:RSDataBlock?
     
     convenience init(placemark:CLPlacemark, json:[String:AnyObject]) {
         self.init()
@@ -29,25 +31,32 @@ class RSForecast: Object {
         
         self.latitude = json["latitude"] as!  Double
         
+        //DataPoint
+        
         if let currently = json["currently"] as? [String:AnyObject] {            
             let currentlyForecast = RSDataPoint(json: currently)
             self.currently = currentlyForecast
         }
         
-        if let daily = json["daily"] as? [String:AnyObject], data = daily["data"] as? [NSDictionary] {
-            for item in data {
-                let dataPoint = RSDataPoint(json: item)
-                dailyDataPoints.append(dataPoint)
-            }
+        //DataBlocks
+        
+        if let daily = json["daily"] as? [String:AnyObject] {
+            let dailyDataBlock = RSDataBlock(json: daily)
+            self.daily = dailyDataBlock
+        }
+        
+        if let minutely = json["minutely"] as? [String:AnyObject]  {
+            let minutelyDataBlock = RSDataBlock(json: minutely)
+            self.minutely = minutelyDataBlock
+        }
+        
+        if let hourly = json["hourly"] as? [String:AnyObject] {
+            let hourlyDataBlock = RSDataBlock(json: hourly)
+            self.hourly = hourlyDataBlock
         }
     }
     
-    var currentTemperature:RSTemperature {
-        let temp = self.currently?.temperature
-        let currentTemperature = RSTemperature(fahrenheitValue: Int(temp!))
-        return currentTemperature
-    }
-    
+
     var time:Double {
         return self.currently!.time
     }

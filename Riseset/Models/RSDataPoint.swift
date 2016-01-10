@@ -42,6 +42,11 @@ class RSDataPoint: Object {
     dynamic var visibility:Double = 0
     dynamic var windBearing:Double = 0
     
+    var currentTemperature:RSTemperature {
+        let currentTemperature = RSTemperature(fahrenheitValue: Int(self.temperature))
+        return currentTemperature
+    }
+    
     convenience init(json:NSDictionary) {
         self.init()
         

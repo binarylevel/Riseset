@@ -21,10 +21,10 @@ class RSForecastViewModel : NSObject  {
  
     let items = BehaviorSubject<[RSForecast]>(value: [])
     
-    var currentTemperature:String {
-        let temp = self.forecast?.currentTemperature
-        return "\(temp!.fahrenheitValue)"
-    }
+//    var currentTemperature:String {
+//        let temp = self.forecast?.currentTemperature
+//        return "\(temp!.fahrenheitValue)"
+//    }
     
     var time:String {
         

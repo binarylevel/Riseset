@@ -27,6 +27,7 @@
 		56A317B71C3E89F200B925D3 /* RSWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A317A81C3E89F200B925D3 /* RSWeatherViewController.swift */; };
 		56A317B81C3E89F200B925D3 /* RSForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A317AA1C3E89F200B925D3 /* RSForecastViewModel.swift */; };
 		56A317B91C3E89F200B925D3 /* RSForecastDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A317AC1C3E89F200B925D3 /* RSForecastDayView.swift */; };
+		56D8FD311C425581003025C5 /* RSDataBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D8FD301C425581003025C5 /* RSDataBlock.swift */; };
 		ED9570F1EC95D2D730FBD391 /* Pods_Riseset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF29C07BEF6F508827EDF621 /* Pods_Riseset.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		56A317A81C3E89F200B925D3 /* RSWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSWeatherViewController.swift; sourceTree = "<group>"; };
 		56A317AA1C3E89F200B925D3 /* RSForecastViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSForecastViewModel.swift; sourceTree = "<group>"; };
 		56A317AC1C3E89F200B925D3 /* RSForecastDayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSForecastDayView.swift; sourceTree = "<group>"; };
+		56D8FD301C425581003025C5 /* RSDataBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDataBlock.swift; sourceTree = "<group>"; };
 		7F35C42BBFCA5E9EA0D0B5B2 /* Pods-Riseset.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Riseset.release.xcconfig"; path = "Pods/Target Support Files/Pods-Riseset/Pods-Riseset.release.xcconfig"; sourceTree = "<group>"; };
 		93BC146D6E5CABCB855651A7 /* Pods-RisesetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RisesetTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RisesetTests/Pods-RisesetTests.release.xcconfig"; sourceTree = "<group>"; };
 		ABF887DD7FF47D8AEAFEBB38 /* Pods-RisesetTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RisesetTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RisesetTests/Pods-RisesetTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				56A317A51C3E89F200B925D3 /* RSDataPoint.swift */,
 				56A317A61C3E89F200B925D3 /* RSForecast.swift */,
 				5657D8AA1C3EBF6F00AC5EF7 /* RSTemperature.swift */,
+				56D8FD301C425581003025C5 /* RSDataBlock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				56A317B11C3E89F200B925D3 /* RSGeocodeController.swift in Sources */,
 				56A317B61C3E89F200B925D3 /* RSForecast.swift in Sources */,
 				5657D8AB1C3EBF6F00AC5EF7 /* RSTemperature.swift in Sources */,
+				56D8FD311C425581003025C5 /* RSDataBlock.swift in Sources */,
 				56A317B71C3E89F200B925D3 /* RSWeatherViewController.swift in Sources */,
 				5657D8A91C3EBAD300AC5EF7 /* ObservableType+Debug.swift in Sources */,
 				56A317B41C3E89F200B925D3 /* RxRealm.swift in Sources */,

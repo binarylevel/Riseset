@@ -127,14 +127,17 @@ class RSWeatherViewController: UIViewController {
             .subscribeNext { [weak self] items in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
-                if let currently = items.first {
+                //print(items)
+                
+                if let currently = items.first?.currently {
+                    print(currently.currentTemperature.fahrenheitValue!)
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                 }
-                
-                if let dailyDatapoints = items.first?.dailyDataPoints {
+
+                if let dailyData = items.first?.daily?.data {
                     
-                    let test = dailyDatapoints[1...3]
-                    let newArray = Array(test)
+                    let sliced = dailyData[1...3]
+                    let newArray = Array(sliced)
                     
                     self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
                         let forecastDayView = view as! RSForecastDayView
@@ -151,13 +154,14 @@ class RSWeatherViewController: UIViewController {
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     
-                    if let currently = items.first {
+                    if let currently = items.first?.currently {
                         self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                     }
                     
-                    if let dailyDatapoints = items.first?.dailyDataPoints {
-                        let test = dailyDatapoints[1...3]
-                        let newArray = Array(test)
+                    if let dailyData = items.first?.daily?.data {
+                        
+                        let sliced = dailyData[1...3]
+                        let newArray = Array(sliced)
                         
                         self?.dayViews!.enumerateObjectsUsingBlock({ view, index, stop in
                             let forecastDayView = view as! RSForecastDayView
