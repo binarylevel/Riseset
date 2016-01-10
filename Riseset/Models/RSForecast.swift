@@ -33,9 +33,10 @@ class RSForecast: Object {
         
         //DataPoint
         
-        if let currently = json["currently"] as? [String:AnyObject] {            
-            let currentlyForecast = RSDataPoint(json: currently)
+        if let currentlyData = json["currently"] as? [String:AnyObject] {
+            let currentlyForecast = RSDataPoint(json: currentlyData)
             self.currently = currentlyForecast
+            print(currently!.humidity)
         }
         
         //DataBlocks

@@ -15,6 +15,7 @@ class RSForecastViewModel : NSObject  {
     
     let forecastController = RSForecastController()
 
+     var publishHumidity = PublishSubject<String?>()
     var publishTime = PublishSubject<String?>()
     var locationName = PublishSubject<String?>()
     var forecastModel = PublishSubject<RSForecast>()
@@ -24,6 +25,10 @@ class RSForecastViewModel : NSObject  {
     var currentTemperature:String {
         let temp = self.forecast?.currently?.currentTemperature
         return "\(temp!.fahrenheitValue)"
+    }
+    
+    var currentHumidity:String {
+        return "\((self.forecast?.currently?.humidity)!*100)%"
     }
     
     var time:String {
@@ -71,11 +76,11 @@ class RSForecastViewModel : NSObject  {
         }
         
         if let forecast = forecast {
-             forecastModel.on(.Next(forecast))
+            forecastModel.on(.Next(forecast))
+            publishHumidity.on(.Next(currentHumidity))
+            publishTime.on(.Next(time))
         }
-        
-        publishTime.on(.Next(time))
-        
+            
         Realm.rx_objects(RSForecast)
             .map { results -> [RSForecast] in
                 return results.map { $0 }

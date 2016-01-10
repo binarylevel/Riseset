@@ -17,8 +17,6 @@ class RSDataBlock: Object {
     convenience init(json:[String:AnyObject]) {
         self.init()
         
-        //print("json \(json)")
-        
         self.summary = json["summary"] as! String
         self.icon = json["icon"] as! String
         

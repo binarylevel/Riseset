@@ -117,6 +117,11 @@ class RSWeatherViewController: UIViewController {
         navigationController?.view.backgroundColor = UIColor.clearColor()
         
         bindSourceToLabel(weatherController.viewModel.publishTime, label: timeLabel)
+        
+        weatherController.viewModel.publishHumidity
+            .subscribeNext { value in
+                print("value \(value!)")
+        }.addDisposableTo(rx_disposeBag)
                 
         weatherController.viewModel.forecastModel
             .subscribeNext { model in
@@ -130,7 +135,7 @@ class RSWeatherViewController: UIViewController {
                 //print(items)
                 
                 if let currently = items.first?.currently {
-                    print(currently.currentTemperature.fahrenheitValue!)
+                    
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                 }
 
