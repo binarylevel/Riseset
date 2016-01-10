@@ -62,6 +62,17 @@ class RSWeatherViewController: UIViewController {
         return timeLabel
     }()
     
+    let summaryLabel:UILabel = {
+        let summaryLabel = UILabel.newAutoLayoutView()
+        if #available(iOS 8.2, *) {
+            summaryLabel.font = UIFont.systemFontOfSize(20.0, weight: UIFontWeightRegular)
+        } else {
+            summaryLabel.font = UIFont.systemFontOfSize(20.0)
+        }
+        summaryLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        return summaryLabel
+    }()
+    
     let temperatureLabel:UILabel = {
         let temperatureLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
@@ -137,6 +148,8 @@ class RSWeatherViewController: UIViewController {
                 if let currently = items.first?.currently {
                     
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
+                    self?.summaryLabel.text = currently.summary
+                    
                 }
 
                 if let dailyData = items.first?.daily?.data {
@@ -222,6 +235,7 @@ class RSWeatherViewController: UIViewController {
         view.addSubview(horizontalLine)
         view.addSubview(temperatureLabel)
         view.addSubview(timeLabel)
+        view.addSubview(summaryLabel)
         
         view.setNeedsUpdateConstraints()
     }
@@ -238,6 +252,9 @@ class RSWeatherViewController: UIViewController {
             
             temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: timeLabel)
             temperatureLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+            
+            summaryLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: temperatureLabel)
+            summaryLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             
             dayViews?.autoSetViewsDimensionsToSize(CGSizeMake(width, height))
             dayViews?.autoMatchViewsDimension(.Width)

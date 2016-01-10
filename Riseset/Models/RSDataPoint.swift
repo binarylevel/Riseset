@@ -46,7 +46,7 @@ class RSDataPoint: Object {
         let currentTemperature = RSTemperature(fahrenheitValue: Int(self.temperature))
         return currentTemperature
     }
-    
+        
     convenience init(json:NSDictionary) {
         self.init()
         

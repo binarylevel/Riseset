@@ -15,7 +15,7 @@ class RSForecastViewModel : NSObject  {
     
     let forecastController = RSForecastController()
 
-     var publishHumidity = PublishSubject<String?>()
+    var publishHumidity = PublishSubject<String?>()
     var publishTime = PublishSubject<String?>()
     var locationName = PublishSubject<String?>()
     var forecastModel = PublishSubject<RSForecast>()
