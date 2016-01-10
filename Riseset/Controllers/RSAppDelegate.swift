@@ -22,6 +22,8 @@
 
 import UIKit
 import RxSwift
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class RSAppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,6 +34,8 @@ class RSAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
        
+        Fabric.with([Crashlytics.self])
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         applicationController = RSApplicationController()

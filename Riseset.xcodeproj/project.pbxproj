@@ -240,6 +240,7 @@
 				4BD0955F2B126BD0BFEC1817 /* Embed Pods Frameworks */,
 				242B397D49DADDC1D9DFB5BD /* Copy Pods Resources */,
 				56951C331C3EA4A100B0217B /* ShellScript */,
+				56D8FD391C42668E003025C5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -392,6 +393,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# xcode-build-bump.sh\n# @desc Auto-increment the build number every time the project is run.\n# @usage\n# 1. Select: your Target in Xcode\n# 2. Select: Build Phases Tab\n# 3. Select: Add Build Phase -> Add Run Script\n# 4. Paste code below in to new \"Run Script\" section\n# 5. Drag the \"Run Script\" below \"Link Binaries With Libraries\"\n# 6. Insure that your starting build number is set to a whole integer and not a float (e.g. 1, not 1.0)\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		56D8FD391C42668E003025C5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 88300c2a59d5352c19153a01c6671ab3339d663e 6365883efd310f74cbfc6417d341fef3d8ffdc069ab00826bde1b7645eaf54ed";
 		};
 		97734F3C0852DFAC266C7181 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
