@@ -25,19 +25,24 @@ class RSWeatherController: NSObject {
     func updateActions() -> Observable<CLLocation> {
         return Observable.create {observer in
             self.locationController.requestAlwaysAuthorization()
-                .debug("requestAuthorization")
+                .debugOnlyInDebugMode("requestAuthorization")
                 .subscribe { event in
                     
                     switch event {
                     case .Next(let authorized):
                       
                         //check if value is authorized here TODO
+                        if authorized {
+                            
+                        } else {
+                            
+                        }
                         
                         self.locationController.runActions().subscribe { event in
                             switch event {
                                 case .Next(let location):
                                     observer.onNext(location)
-                                    self.geocodeController.reverseGeocodeLocation(location).debug("reverseGeocodeLocation").subscribeNext { [weak self] placemark in
+                                    self.geocodeController.reverseGeocodeLocation(location).debugOnlyInDebugMode("reverseGeocodeLocation").subscribeNext { [weak self] placemark in
                                     
                                     self?.viewModel.placemark = placemark
                                     

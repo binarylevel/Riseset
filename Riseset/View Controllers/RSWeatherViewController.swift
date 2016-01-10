@@ -122,7 +122,9 @@ class RSWeatherViewController: UIViewController {
             .subscribeNext { model in
         }.addDisposableTo(rx_disposeBag)
         
-        Realm.rx_objects(RSForecast).subscribeNext { [weak self] items in
+        Realm.rx_objects(RSForecast)
+            .debugOnlyInDebugMode("fetch realm objects")
+            .subscribeNext { [weak self] items in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
                 if let currently = items.first {
@@ -144,6 +146,7 @@ class RSWeatherViewController: UIViewController {
         }.addDisposableTo(self.rx_disposeBag)
         
         weatherController.viewModel.items
+            .debugOnlyInDebugMode("refresh model")
             .subscribeNext { [weak self] items in
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
