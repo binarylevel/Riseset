@@ -27,57 +27,39 @@ class RSWeatherController: NSObject {
             self.locationController.requestAlwaysAuthorization()
                 .debug("requestAuthorization")
                 .subscribe { event in
-                    //print("event \(event)")
+                    
                     switch event {
                     case .Next(let authorized):
                       
-//                        if authorized {
-//                            print("authorized fetch current location")
-//                        } else {
-//                            print("denied")
-//                        }
+                        //check if value is authorized here TODO
                         
-                        self.locationController.runActions2().subscribe { event in
-                            //print("event \(event)")
+                        self.locationController.runActions().subscribe { event in
                             switch event {
-                            case .Next(let location):
-                                //print("from PROTO location \(location)")
-                                observer.onNext(location)
-                                self.geocodeController.reverseGeocodeLocation(location).debug("reverseGeocodeLocation").subscribeNext { [weak self] placemark in
-                                    
-                                    //print("locality \(placemark.locality!)")
-                                    //print("administrativeArea \(placemark.administrativeArea!)")
+                                case .Next(let location):
+                                    observer.onNext(location)
+                                    self.geocodeController.reverseGeocodeLocation(location).debug("reverseGeocodeLocation").subscribeNext { [weak self] placemark in
                                     
                                     self?.viewModel.placemark = placemark
                                     
                                     }.addDisposableTo(self.rx_disposeBag)
-                                break
-                            case .Completed:
-                                
-                                break
+                                    break
+                                case .Completed:
+                                    break
                             case .Error(let error):
-                                //print("from PROTO testCommands error \(error)")
-                                observer.onError(error)
-                                break
-                            }
-                            
+                                    observer.onError(error)
+                                    break
+                                }
                             }.addDisposableTo(self.rx_disposeBag)
                         self.locationController.locationManager.startUpdatingLocation()
                         break
                     case .Completed:
-                        //print("completed")
-                        
                         break
                     case .Error(let error):
-                        //print("error!!!!!!!!! \(error)")
                         observer.onError(error)
                         break
                     }
                 }.addDisposableTo(self.rx_disposeBag)
-            
-            
             return NopDisposable.instance
         }
     }
-    
 }

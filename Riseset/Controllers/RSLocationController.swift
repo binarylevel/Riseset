@@ -73,35 +73,6 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
     }
 
     func updateLocationAction()->Observable<CLLocation> {
-        return Observable.create { observer in
-            self.locationManager.rx_didUpdateLocations.take(1).subscribe { event in
-                switch event {
-                case .Next(let value):
-                    let location = value.last!
-                    observer.onNext(location)
-                    break
-                case .Completed:
-                    observer.onCompleted()
-                    break
-                default: break
-                }
-            }.addDisposableTo(self.rx_disposeBag)
-            return NopDisposable.instance
-        }
-    }
-    
-    func failWithErrorAction()->Observable<NSError> {
-        return Observable.create { observer in
-            self.locationManager.rx_didFailWithError
-                .subscribeNext { error in
-                observer.onError(error)
-            }.addDisposableTo(self.rx_disposeBag)
-            return NopDisposable.instance
-        }
-    }
-    
-    
-    func updateLocationAction2()->Observable<CLLocation> {
         return self.locationManager
             .rx_didUpdateLocations
             .take(1)
@@ -110,18 +81,18 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
             }
     }
     
-    func failWithErrorAction2()->Observable<NSError> {
+    func failWithErrorAction()->Observable<NSError> {
         return self.locationManager
             .rx_didFailWithError
             .flatMap { Observable.error($0) }
     }
     
-    func runActions2() -> Observable <CLLocation> {
+    func runActions() -> Observable <CLLocation> {
         return Observable.create {observer in
             
             let actions:[Observable<Action>] = [
-                self.updateLocationAction2().map { _ in .UpdateLocation },
-                self.failWithErrorAction2().map { _ in .FailWithError }
+                self.updateLocationAction().map { _ in .UpdateLocation },
+                self.failWithErrorAction().map { _ in .FailWithError }
             ]
             
             actions
@@ -130,16 +101,14 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                 .debugOnlyInDebugMode("debugOnlyInDebugMode:actions")
                 .take(1)
                 .subscribe { event in
-                    print("EVENT ACTION \(event)")
                     switch event {
-                    case .Next(let value):
-                        print("next value \(value)")
-                        if value == .UpdateLocation {
-                            self.fetchCurrentLocation().subscribeNext { location in
-                                observer.onNext(location)
-                                observer.onCompleted()
+                        case .Next(let value):
+                            if value == .UpdateLocation {
+                                self.fetchCurrentLocation().subscribeNext { location in
+                                    observer.onNext(location)
+                                    observer.onCompleted()
                                 }.addDisposableTo(self.rx_disposeBag)
-                        }
+                            }
                         break
                     case .Completed:
                         break
@@ -169,42 +138,6 @@ class RSLocationController: NSObject, CLLocationManagerDelegate {
                     break
                 }
             }.addDisposableTo(self.rx_disposeBag)
-            return NopDisposable.instance
-        }
-    }
-    
-    func runActions() -> Observable <CLLocation> {
-        return Observable.create {observer in
-        
-            let actions:[Observable<Action>] = [
-                self.updateLocationAction().map { _ in return .UpdateLocation },
-                self.failWithErrorAction().map { _ in return .FailWithError }
-            ]
-            
-            actions
-                .toObservable()
-                .merge()
-                .debug("actions")
-                .take(1)
-                .subscribe { event in
-                    print("EVENT ACTION \(event)")
-                    switch event {
-                    case .Next(let value):
-                        print("next value \(value)")
-                        if value == .UpdateLocation {
-                            self.fetchCurrentLocation().subscribeNext { location in
-                                observer.onNext(location)
-                                observer.onCompleted()
-                            }.addDisposableTo(self.rx_disposeBag)
-                        }
-                        break
-                    case .Completed:
-                        break
-                    case .Error(let value):
-                        observer.onError(value)
-                        break
-                    }
-                }.addDisposableTo(self.rx_disposeBag)
             return NopDisposable.instance
         }
     }
