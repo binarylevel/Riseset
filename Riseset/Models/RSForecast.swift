@@ -64,6 +64,4 @@ class RSForecast: Object {
     override class func primaryKey() -> String? {
         return "id"
     }
-
-  
 }
