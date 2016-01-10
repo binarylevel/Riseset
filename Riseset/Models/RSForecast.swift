@@ -25,11 +25,7 @@ class RSForecast: Object {
         self.locality = placemark.locality
         self.administrativeArea = placemark.administrativeArea
         
-        if let currently = json["currently"] as? [String:AnyObject] {
-            //print("currently \(currently)")
-            let current = RSTemperature(fahrenheitValue: currently["temperature"] as! Int)
-            print(current.description)
-            
+        if let currently = json["currently"] as? [String:AnyObject] {            
             let currentlyForecast = RSDataPoint(json: currently)
             self.currently = currentlyForecast
         }
