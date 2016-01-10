@@ -46,7 +46,18 @@ class RSDataPoint: Object {
         let currentTemperature = RSTemperature(fahrenheitValue: Int(self.temperature))
         return currentTemperature
     }
+    
+    var currentTime:String {
         
+        let date = NSDate(timeIntervalSince1970: time)
+            
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale.currentLocale()
+        dateFormatter.dateFormat = "HH:mm a"
+        
+        return dateFormatter.stringFromDate(date)
+    }
+    
     convenience init(json:NSDictionary) {
         self.init()
         

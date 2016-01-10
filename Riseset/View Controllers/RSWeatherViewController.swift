@@ -129,13 +129,10 @@ class RSWeatherViewController: UIViewController {
         
         bindSourceToLabel(weatherController.viewModel.publishTime, label: timeLabel)
         
+        
         weatherController.viewModel.publishHumidity
             .subscribeNext { value in
                 print("value \(value!)")
-        }.addDisposableTo(rx_disposeBag)
-                
-        weatherController.viewModel.forecastModel
-            .subscribeNext { model in
         }.addDisposableTo(rx_disposeBag)
         
         Realm.rx_objects(RSForecast)
@@ -147,6 +144,7 @@ class RSWeatherViewController: UIViewController {
                 
                 if let currently = items.first?.currently {
                     
+                    self?.timeLabel.text = currently.currentTime
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                     self?.summaryLabel.text = currently.summary
                     
