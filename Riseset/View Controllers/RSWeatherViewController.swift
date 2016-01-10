@@ -65,9 +65,9 @@ class RSWeatherViewController: UIViewController {
     let summaryLabel:UILabel = {
         let summaryLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
-            summaryLabel.font = UIFont.systemFontOfSize(20.0, weight: UIFontWeightRegular)
+            summaryLabel.font = UIFont.systemFontOfSize(24.0, weight: UIFontWeightRegular)
         } else {
-            summaryLabel.font = UIFont.systemFontOfSize(20.0)
+            summaryLabel.font = UIFont.systemFontOfSize(24.0)
         }
         summaryLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
         return summaryLabel
