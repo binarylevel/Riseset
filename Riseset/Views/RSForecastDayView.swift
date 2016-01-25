@@ -47,7 +47,7 @@ class RSForecastDayView: UIView {
             iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
             
-            temperatureLabel.text = "\(dataPoint!.temperatureMax)"
+            temperatureLabel.text = "\(dataPoint!.temperatureMin)/\(dataPoint!.temperatureMax)"
         
         }
     }
@@ -76,7 +76,6 @@ class RSForecastDayView: UIView {
             
             temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: iconImageView, withOffset: 0.0)
             temperatureLabel.autoAlignAxis(.Vertical, toSameAxisOfView: self)
-            //temperatureLabel.autoCenterInSuperview()
             
             dayLabel.autoAlignAxis(.Vertical, toSameAxisOfView: self)
             dayLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: iconImageView, withOffset: -5.0)
