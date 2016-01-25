@@ -129,7 +129,6 @@ class RSWeatherViewController: UIViewController {
         
         bindSourceToLabel(weatherController.viewModel.publishTime, label: timeLabel)
         
-        
         weatherController.viewModel.publishHumidity
             .subscribeNext { value in
                 print("value \(value!)")
@@ -141,11 +140,9 @@ class RSWeatherViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
                 if let currently = items.first?.currently {
-                    
                     self?.timeLabel.text = currently.currentTime
                     self?.temperatureLabel.text = "\(currently.currentTemperature.fahrenheitValue!)°"
                     self?.summaryLabel.text = currently.summary
-                    
                 }
 
                 if let dailyData = items.first?.daily?.data {

@@ -47,6 +47,16 @@ class RSDataPoint: Object {
         return currentTemperature
     }
     
+    var currentTemperatureMax:RSTemperature {
+        let currentTemperatureMax = RSTemperature(fahrenheitValue: Int(self.temperatureMax))
+        return currentTemperatureMax
+    }
+    
+    var currentTemperatureMin:RSTemperature {
+        let currentTemperatureMin = RSTemperature(fahrenheitValue: Int(self.temperatureMin))
+        return currentTemperatureMin
+    }
+    
     var currentTime:String {
         
         let date = NSDate(timeIntervalSince1970: time)
