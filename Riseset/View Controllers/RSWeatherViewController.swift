@@ -140,7 +140,6 @@ class RSWeatherViewController: UIViewController {
             .subscribeNext { [weak self] items in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
-        
                 if let currently = items.first?.currently {
                     
                     self?.timeLabel.text = currently.currentTime
