@@ -47,7 +47,13 @@ class RSForecastDayView: UIView {
             iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
             
-            temperatureLabel.text = "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)° / \(dataPoint!.currentTemperatureMax.fahrenheitValue!)°"
+            let str = "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)° / \(dataPoint!.currentTemperatureMax.fahrenheitValue!)°"
+
+            let attributedString = NSMutableAttributedString(string: str)
+            
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange(location: 0, length: "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)°".characters.count))
+            
+            temperatureLabel.attributedText = attributedString
         }
     }
     
