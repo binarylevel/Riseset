@@ -51,6 +51,11 @@ class RSWeatherViewController: UIViewController {
     var viewModel = RSForecastViewModel()
     var dayViews:NSMutableArray?
     
+    let iconImageView:UIImageView = {
+        let iconImageView = UIImageView.newAutoLayoutView()
+        return iconImageView
+    }()
+    
     let timeLabel:UILabel = {
         let timeLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
@@ -236,6 +241,7 @@ class RSWeatherViewController: UIViewController {
         view.addSubview(temperatureLabel)
         view.addSubview(timeLabel)
         view.addSubview(summaryLabel)
+        view.addSubview(iconImageView)
         
         view.setNeedsUpdateConstraints()
     }
