@@ -24,7 +24,7 @@ class RSForecastDayView: UIView {
         } else {
             temperatureLabel.font = UIFont.systemFontOfSize(16.0)
         }
-        temperatureLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        temperatureLabel.textColor = UIColor(red: 78.0 / 255.0, green: 95.0 / 255.0, blue: 120.0 / 255.0, alpha: 1.0)
         return temperatureLabel
     }()
     
@@ -49,11 +49,13 @@ class RSForecastDayView: UIView {
             
             let str = "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)° / \(dataPoint!.currentTemperatureMax.fahrenheitValue!)°"
 
-            let attributedString = NSMutableAttributedString(string: str)
+//            let attributedString = NSMutableAttributedString(string: str)
+//            
+//            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 107.0 / 255.0, green: 131.0 / 255.0, blue: 165.0 / 255.0, alpha: 1.0), range: NSRange(location: 0, length: "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)°".characters.count))
+//            
+//            temperatureLabel.attributedText = attributedString
             
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 107.0 / 255.0, green: 131.0 / 255.0, blue: 165.0 / 255.0, alpha: 1.0), range: NSRange(location: 0, length: "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)°".characters.count))
-            
-            temperatureLabel.attributedText = attributedString
+            temperatureLabel.text = str
         }
     }
     
