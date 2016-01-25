@@ -51,7 +51,7 @@ class RSForecastDayView: UIView {
 
             let attributedString = NSMutableAttributedString(string: str)
             
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange(location: 0, length: "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)°".characters.count))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 107.0 / 255.0, green: 131.0 / 255.0, blue: 165.0 / 255.0, alpha: 1.0), range: NSRange(location: 0, length: "\(dataPoint!.currentTemperatureMin.fahrenheitValue!)°".characters.count))
             
             temperatureLabel.attributedText = attributedString
         }
