@@ -17,6 +17,17 @@ class RSForecastDayView: UIView {
         return iconImageView
     }()
     
+    let temperatureLabel:UILabel = {
+        let temperatureLabel = UILabel.newAutoLayoutView()
+        if #available(iOS 8.2, *) {
+            temperatureLabel.font = UIFont.systemFontOfSize(20.0, weight: UIFontWeightRegular)
+        } else {
+            temperatureLabel.font = UIFont.systemFontOfSize(20.0)
+        }
+        temperatureLabel.textColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        return temperatureLabel
+    }()
+    
     let dayLabel:UILabel = {
         let dayLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
@@ -35,6 +46,8 @@ class RSForecastDayView: UIView {
             iconImageView.image = UIImage(named: dataPoint!.icon)
             iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+            
+            temperatureLabel.text = "\(dataPoint!.temperatureMax)"
         
         }
     }
@@ -46,6 +59,7 @@ class RSForecastDayView: UIView {
         
         addSubview(dayLabel)
         addSubview(iconImageView)
+        addSubview(temperatureLabel)
         
         setNeedsUpdateConstraints()
     }
@@ -59,6 +73,10 @@ class RSForecastDayView: UIView {
             
             iconImageView.autoSetDimensionsToSize(CGSizeMake(80.0, 71.0))
             iconImageView.autoCenterInSuperview()
+            
+            temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: iconImageView, withOffset: 0.0)
+            temperatureLabel.autoAlignAxis(.Vertical, toSameAxisOfView: self)
+            //temperatureLabel.autoCenterInSuperview()
             
             dayLabel.autoAlignAxis(.Vertical, toSameAxisOfView: self)
             dayLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: iconImageView, withOffset: -5.0)
