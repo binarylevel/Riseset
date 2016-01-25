@@ -164,6 +164,10 @@ class RSWeatherViewController: UIViewController {
             
         }.addDisposableTo(self.rx_disposeBag)
         
+        iconImageView.image = UIImage(named: "partly-cloudy-night-scaled")
+        iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
+        
         weatherController.viewModel.items
             .debugOnlyInDebugMode("refresh model")
             .subscribeNext { [weak self] items in
@@ -258,6 +262,10 @@ class RSWeatherViewController: UIViewController {
             
             temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: timeLabel)
             temperatureLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+            
+            iconImageView.autoSetDimensionsToSize(CGSizeMake(160.0, 142.0))
+            iconImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: temperatureLabel, withOffset: 20.0)
+            iconImageView.autoAlignAxisToSuperviewAxis(.Vertical)
             
             summaryLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: temperatureLabel)
             summaryLabel.autoAlignAxisToSuperviewAxis(.Vertical)
