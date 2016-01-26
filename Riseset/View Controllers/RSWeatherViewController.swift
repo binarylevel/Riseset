@@ -45,16 +45,10 @@ class RSWeatherViewController: UIViewController {
     let locationController = RSLocationController()
     let geocodeController = RSGeocodeController()
     let forecastController = RSForecastController()
-    
     let weatherController = RSWeatherController()
 
     var viewModel = RSForecastViewModel()
     var dayViews:NSMutableArray?
-    
-    let iconImageView:UIImageView = {
-        let iconImageView = UIImageView.newAutoLayoutView()
-        return iconImageView
-    }()
     
     let timeLabel:UILabel = {
         let timeLabel = UILabel.newAutoLayoutView()
@@ -81,7 +75,7 @@ class RSWeatherViewController: UIViewController {
     let temperatureLabel:UILabel = {
         let temperatureLabel = UILabel.newAutoLayoutView()
         if #available(iOS 8.2, *) {
-            temperatureLabel.font = UIFont.systemFontOfSize(160.0, weight: UIFontWeightRegular)
+            temperatureLabel.font = UIFont.systemFontOfSize(160.0, weight: UIFontWeightLight)
         } else {
             temperatureLabel.font = UIFont.systemFontOfSize(160.0)
         }
@@ -161,12 +155,7 @@ class RSWeatherViewController: UIViewController {
                     })
                 }
             })
-            
         }.addDisposableTo(self.rx_disposeBag)
-        
-        iconImageView.image = UIImage(named: "partly-cloudy-night-scaled")
-        iconImageView.image = iconImageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        iconImageView.tintColor = UIColor(red: 57.0 / 255.0, green: 70.0 / 255.0, blue: 89.0 / 255.0, alpha: 1.0)
         
         weatherController.viewModel.items
             .debugOnlyInDebugMode("refresh model")
@@ -216,9 +205,7 @@ class RSWeatherViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         weatherController.updateActions().subscribeNext { location in
-    
         }.addDisposableTo(rx_disposeBag)
     }
     
@@ -241,7 +228,6 @@ class RSWeatherViewController: UIViewController {
         view.addSubview(temperatureLabel)
         view.addSubview(timeLabel)
         view.addSubview(summaryLabel)
-        view.addSubview(iconImageView)
         
         view.setNeedsUpdateConstraints()
     }
@@ -258,10 +244,6 @@ class RSWeatherViewController: UIViewController {
             
             temperatureLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: timeLabel)
             temperatureLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            
-            iconImageView.autoSetDimensionsToSize(CGSizeMake(160.0, 142.0))
-            iconImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: temperatureLabel, withOffset: 20.0)
-            iconImageView.autoAlignAxisToSuperviewAxis(.Vertical)
             
             summaryLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: temperatureLabel)
             summaryLabel.autoAlignAxisToSuperviewAxis(.Vertical)
