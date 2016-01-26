@@ -197,17 +197,13 @@ class RSWeatherViewController: UIViewController {
         weatherController.viewModel.locationName
             .startWith("updating weather...")
             .subscribeNext { [weak self] text in
-                print("text \(text)")
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self?.locationLabel.text = text
-                    print("text \(text)")
                 })
         }.addDisposableTo(rx_disposeBag)
         
         NSNotificationCenter.defaultCenter().rx_notification(UIApplicationWillEnterForegroundNotification).subscribeNext { [weak self] _ in
             self?.weatherController.updateActions().subscribeNext { location in
-                print(location)
-                                
                 self?.viewModel.updateViewModel()
             }.addDisposableTo(self!.rx_disposeBag)
         }.addDisposableTo(rx_disposeBag)
