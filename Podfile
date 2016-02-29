@@ -15,6 +15,7 @@ target :Riseset do
   pod 'Alamofire', '~> 3.0'
   pod 'RealmSwift'
   pod 'NSObject+Rx'
+  pod 'SnapKit', '~> 0.15.0'
 end
 
 target :RisesetTests do
